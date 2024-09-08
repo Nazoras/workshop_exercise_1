@@ -1,5 +1,9 @@
 import random
+"""
+reverse game about "guess the number"
 
+the comnputer is trying to figure out the right number
+"""
 def my_number():
     " a helper function to enter the number"
     try:
@@ -13,6 +17,7 @@ def my_number():
     return my_guess
 
 def guess_the_number():
+    "main function"
     counter = 10
     my_guessed_number = my_number()
     print(my_guessed_number)
