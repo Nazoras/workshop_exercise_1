@@ -6,12 +6,12 @@ try to figure out, which number we are looking for.
 
 def my_number():
     " a helper function to enter the number"
-    try:
-        my_guess = int(input("Guess the number: "))
-    except ValueError:
-        print("It's not a number, last chance fancy pants:")
-        my_guess = int(input("Guess the number: "))
-    return my_guess
+    while True:
+        try:
+            my_guess = int(input("Guess the number: "))
+            return my_guess
+        except ValueError:
+            print("It's not a number, last chance fancy pants:")
 
 def guess_the_number():
     "the maingame"
