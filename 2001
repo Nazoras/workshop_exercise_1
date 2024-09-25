@@ -1,0 +1,130 @@
+import random
+
+player_points = 0
+computer_points = 0
+counter = 1
+
+
+def computers_turn(computer_points, wuerfel_punkte):
+    RC = random.choice([3, 4, 6, 10, 12, 20, 100])
+    print(f" Der computer wählt das Set: {RC} aus")
+    for i in range(RC):
+        wuerfel_punkte = 0
+        wuerfel = random.randint(1, 6)
+        print("computers würfel: ", wuerfel)
+        wuerfel_punkte += wuerfel
+        print("computers wuerfel_punkte: ", wuerfel_punkte)
+        if wuerfel_punkte == 7:
+            abzug = computer_points / wuerfel_punkte
+            print(f"STRAFE für die 7: {computer_points} - {abzug} = {computer_points - abzug}")
+            computer_points -= abzug
+        else:
+            continue
+    computer_points += wuerfel_punkte
+    print("\n"f"counter: {counter}", "\n"f"computer würfelpunkte:  {wuerfel_punkte}",
+          "\n"f"computer points: {computer_points}""\n")
+    return  computer_points
+
+def game(player_points, computer_points, counter):
+    if counter == 1: #ROUND 1
+        user_input=input("first round! you get 2 6w dices, press enter to continue") #DEF USER INPUT SCHREIBEN
+        while user_input != "":
+            user_input = input("press enter. everthing else will be not accepted")
+        for i in range(2): # DEF 1 RUNDE Schreiben
+            wuerfel = random.randint(1, 6)
+            player_points += wuerfel
+            print(f"counter: {counter}","\n"f"dein wurf:  {wuerfel}","\n"f"players points: {player_points}""\n")
+        user_input = input("der computer ist dran. bist du bereit?")
+        while user_input != "":
+            user_input = input("press enter. everthing else will be not accepted")
+        for i in range(2):
+            wuerfel = random.randint(1, 6)
+            computer_points += wuerfel
+            print(f"counter: {counter}", "\n"f"computer wurf:  {wuerfel}", "\n"f"computer points: {computer_points}""\n")
+        print(f"your points {player_points}, computer points {computer_points}")
+        counter += 1
+
+        ###### ROUND 2
+        print("round 2")
+        wuerfel_punkte  = 0
+        user_input=input("SECOND ROUND! you get 2 6w dices, press enter to continue")
+        while user_input != "":
+            user_input = input("press enter. everthing else will be not accepted")
+        for i in range(2): #DEF_ WUERFEL-ABZUG schreiben
+            wuerfel = random.randint(1, 6)
+            print("würfel: ",wuerfel)
+            wuerfel_punkte += wuerfel
+            print("wuerfel_punkte: ", wuerfel_punkte)
+            if wuerfel_punkte == 7:
+                abzug = player_points / wuerfel_punkte
+                print(f"STRAFE für die 7: {player_points} - { abzug} = {player_points - abzug}")
+                player_points -= abzug
+            else:
+                continue
+        player_points +=  wuerfel_punkte
+        print("\n"f"counter: {counter}", "\n"f"dein würfe:  {wuerfel_punkte}",
+              "\n"f"players points: {player_points}""\n")
+        user_input = input("der computer ist dran. bist du bereit?") #USER INPUT
+        while user_input != "":
+            user_input = input("press enter. everthing else will be not accepted")
+        wuerfel_punkte = 0
+        for i in range(2): # COMPUTER ROUND 2
+            wuerfel = random.randint(1, 6)
+            print("würfel: ", wuerfel)
+            wuerfel_punkte += wuerfel
+            print("wuerfel_punkte: ", wuerfel_punkte)
+            if wuerfel_punkte == 7:
+                abzug = computer_points/ wuerfel_punkte
+                print(f"STRAFE für die 7: {computer_points} - {abzug} = {computer_points - abzug}")
+                computer_points -= abzug
+            else:
+                continue
+        computer_points += wuerfel_punkte
+        print("\n"f"counter: {counter}", "\n"f"computer würfelpunkte:  {wuerfel_punkte}",
+              "\n"f"computer points: {computer_points}""\n")
+        wuerfel_punkte = 0
+        print(f"your points {player_points}, computer points {computer_points}")
+        counter += 1
+
+
+        #### RESTLICHE RUNDEN
+        if counter >= 3:
+            flage = False
+            while flage is False:
+                if player_points >= 2001 or computer_points >= 2001:
+                    flage = True
+                    if player_points >= 2001:
+                        print("YOU WON!!!")
+                    else:
+                        print("THE COMPUTER WON!!")
+                else:
+                    user_input = input(f"ROUND {counter}! Take your choice between 3,4,6,10,12,20 or 100")
+                    while user_input != "3" and user_input != "4" and user_input != "6" and user_input != "10" and user_input != "12" and user_input != "20" and user_input != "100":
+                        user_input = input("WRONG INPUT! Take your choice between 3,4,6,10,12,20 or 100")
+                    user_int = int(user_input)
+                    print( type(user_int))
+                    roll_points = calculator(user_int, player_points, wuerfel_punkte)
+                    player_points += roll_points
+
+                    cp = computers_turn(computer_points,wuerfel_punkte)
+                    computer_points += cp
+                    wuerfel_punkte = 0
+                    counter += 1
+                    print(f"your points: {player_points} <-> computers points: {computer_points}")
+
+game(player_points,computer_points,counter)
+
+def calculator (user_int, player_points, wuerfel_punkte): #helper function
+    for i in range(user_int):
+        wuerfel_punkte = 0
+        dice = random.randint(1,6)
+        print(f"dice: {dice}")
+        wuerfel_punkte += dice
+        if wuerfel_punkte == 7:
+            penalty = player_points / dice_points
+            print(f"STRAFE für die 7: {player_points} - { penalty} = {player_points - penalty}")
+            player_points -= penalty
+        else:
+            player_points += wuerfel_punkte
+            print(f"your points total :{player_points}")
+    return player_points
