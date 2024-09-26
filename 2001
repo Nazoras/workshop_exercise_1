@@ -5,6 +5,21 @@ computer_points = 0
 counter = 1
 
 
+def calculator (user_int, player_points, wuerfel_punkte): #helper function
+    for i in range(user_int):
+        wuerfel_punkte = 0
+        dice = random.randint(1,6)
+        print(f"dice: {dice}")
+        wuerfel_punkte += dice
+        if wuerfel_punkte == 7:
+            penalty = player_points / dice_points
+            print(f"STRAFE für die 7: {player_points} - { penalty} = {player_points - penalty}")
+            player_points -= penalty
+        else:
+            player_points += wuerfel_punkte
+            print(f"your points total :{player_points}")
+    return player_points
+
 def computers_turn(computer_points, wuerfel_punkte):
     RC = random.choice([3, 4, 6, 10, 12, 20, 100])
     print(f" Der computer wählt das Set: {RC} aus")
@@ -114,17 +129,3 @@ def game(player_points, computer_points, counter):
 
 game(player_points,computer_points,counter)
 
-def calculator (user_int, player_points, wuerfel_punkte): #helper function
-    for i in range(user_int):
-        wuerfel_punkte = 0
-        dice = random.randint(1,6)
-        print(f"dice: {dice}")
-        wuerfel_punkte += dice
-        if wuerfel_punkte == 7:
-            penalty = player_points / dice_points
-            print(f"STRAFE für die 7: {player_points} - { penalty} = {player_points - penalty}")
-            player_points -= penalty
-        else:
-            player_points += wuerfel_punkte
-            print(f"your points total :{player_points}")
-    return player_points
